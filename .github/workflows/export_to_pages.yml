@@ -25,30 +25,21 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-          path: main
           ref: main
-      - uses: actions/checkout@v2
-        with:
-          path: pages
-          ref: gh-pages
       - uses: actions/setup-node@v1
         with:
           node-version: 16
           
       - name: Build `main` branch
         run: |
-          cd main
           npm ci
           npm run build
-          cd ..
-      
-      - name: Copy built `main` to `gh-pages`
-        run: cp main/dist/* pages/libraries
       
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.7
-        working-directory: ./pages
         with:
           branch: gh-pages
-          folder: .
+          folder: dists
+          target-folder: libraries
           clean: true
+          commit-message: "Update libraries"
