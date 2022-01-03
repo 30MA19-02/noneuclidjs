@@ -46,6 +46,8 @@ jobs:
         run: |
           cp main/dist/* pages/libraries
           cd pages
+      - name: debug
+        run: ls -a
       
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.7
