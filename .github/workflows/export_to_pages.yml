@@ -41,7 +41,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: gh-pages
-          folder: dists
+          folder: dist
           target-folder: libraries
           clean: true
           commit-message: "Update libraries"
