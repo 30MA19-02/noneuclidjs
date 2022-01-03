@@ -43,11 +43,13 @@ jobs:
           cd ..
       
       - name: Copy built `main` to `gh-pages`
-        run: cp main/dist/* pages/libraries
+        run: |
+          cp main/dist/* pages/libraries
+          cd pages
       
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: gh-pages
-          folder: pages
+          folder: .
           clean: true
