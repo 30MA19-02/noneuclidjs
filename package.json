@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
-    "build-docs": "npm run build && cp dist/* docs/lib/ && node_modules/.bin/r.js -o docs/build.js"
+    "build-docs": "npm run build && node_modules/.bin/r.js -o docs/docs-build.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "browserify": "^17.0.0",
+    "p5": "^1.4.0",
     "requirejs": "^2.3.6"
   }
 }
