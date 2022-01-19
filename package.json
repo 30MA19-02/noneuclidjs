@@ -4,22 +4,24 @@
   "description": "30MA19-02",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js -s noneuc -o dist/noneuclid.js"
+    "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
+    "build-docs": "npm run build && cp dist/* docs/lib/ && node_modules/.bin/r.js -o docs/build.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/30MA19-02/Program.git"
+    "url": "git+https://github.com/30MA19-02/noneuclidjs.git"
   },
   "author": "30MA19-02",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/30MA19-02/Program/issues"
+    "url": "https://github.com/30MA19-02/noneuclidjs/issues"
   },
-  "homepage": "https://github.com/30MA19-02/Program#readme",
+  "homepage": "https://30ma19-02.github.io/noneuclidjs/",
   "dependencies": {
     "mathjs": "^10.1.0"
   },
   "devDependencies": {
-    "browserify": "^17.0.0"
+    "browserify": "^17.0.0",
+    "requirejs": "^2.3.6"
   }
 }
