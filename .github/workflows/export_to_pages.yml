@@ -33,13 +33,13 @@ jobs:
       - name: Build `main` branch
         run: |
           npm ci
-          npm run build
+          npm run build-docs
       
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: main
-          folder: dist
-          target-folder: docs/lib
+          folder: docs
+          target-folder: docs
           clean: false
-          commit-message: "Update libraries"
+          commit-message: "Build docs"
