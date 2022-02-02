@@ -33,7 +33,7 @@ jobs:
       - name: Build `docs` in `main` branch
         run: |
           npm ci
-          npm run build-docs
+          npm run docs-build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.7
