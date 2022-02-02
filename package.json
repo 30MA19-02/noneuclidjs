@@ -4,7 +4,7 @@
   "description": "30MA19-02",
   "main": "index.js",
   "files": [
-    "./modules/*"
+    "./modules/point.js"
   ],
   "man": [
     "./man/*"
