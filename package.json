@@ -11,9 +11,9 @@
   ],
   "scripts": {
     "build": "(npm ci || npm install) && browserify index.js -s noneuc -o dist/noneuclid.js",
-    "docs-dev": "cd docs/app && (npm ci || npm install) && npm run dev",
-    "docs-build": "cd docs/app && (npm ci || npm install) && npm run build && cp -r ./dist/* ..",
-    "docs-preview": "cd docs/app && (npm ci || npm install) && npm run preview"
+    "docs-dev": "cd docs && (npm ci || npm install) && npm run dev",
+    "docs-build": "cd docs && (npm ci || npm install) && npm run build",
+    "docs-preview": "cd docs && (npm ci || npm install) && npm run preview"
   },
   "repository": {
     "type": "git",
