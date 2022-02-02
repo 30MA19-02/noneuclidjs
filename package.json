@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
-    "build-docs": "npm run build && node_modules/.bin/r.js -o docs/docs-build.js"
+    "build-docs": "browserify index.js -s noneuc -o docs/lib/noneuclid.js && node docs/docs-build.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "browserify": "^17.0.0",
     "p5": "^1.4.0",
-    "requirejs": "^2.3.6"
+    "requirejs": "^2.3.6",
+    "three": "^0.137.5"
   }
 }
