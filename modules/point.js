@@ -7,28 +7,42 @@ function cosine(theta, kappa = 1) {
   return kappa == 0 ? 1 : kappa > 0 ? cos(theta * kappa) : cosh(theta * kappa);
 }
 
+function rotation(theta, kappa){
+  return matrix([
+    [cosine(theta, kappa), -sine(theta, kappa, s=true)],
+    [sine(theta, kappa), cos(theta, kappa)],
+  ]);
+}
+
+function positional(...theta, kappa){
+  let n = theta.length;
+  if(n==0) return matrix([[1]]);
+  return multiply(
+    concat(concat(positional(...[theta.slice(0,-1)], kappa), zeros(n,1), 2), concat(zeros(1,n), identity(1), 2), 1)
+    * matrix(new Array(n+1).fill(0).map(
+      (_, i)=>new Array(n+1).fill(0).map((_,j)=>
+        (i==j && i!=1 && i!= n) || (i==1&&j==n) || (i==n&&j==1)? 1:0
+      )))
+    * concat(concat(rotation(theta[n-1], kappa), zeros(2,n-1), 2), concat(zeros(n-1,2), identity(n-1), 2), 1)
+    * matrix(new Array(n+1).fill(0).map(
+      (_, i)=>new Array(n+1).fill(0).map((_,j)=>
+        (i==j && i!=1 && i!= n) || (i==1&&j==n) || (i==n&&j==1)? 1:0
+      )))
+  );
+}
+function orientational(...phi, reflect=false){
+  let n = phi.length;
+  if(n==0) return matrix([[reflect? -1:1]]);
+  return concat(concat(identity(1), zeros(1,n), 2), concat(zeros(n,1), point(...phi, +1), 2), 1);
+}
+function point(theta, ...phi, kappa){
+  return multiply(orientational(...phi), positional(...theta, kappa))
+}
+
 export class Point {
-  constructor(x, y, theta, kappa) {
+  constructor(theta, ...phi, kappa) {
     this.kappa = kappa;
-    this.mat = multiply(
-      matrix([
-        [1, 0, 0],
-        [0, cosine(theta, 1), -sine(theta, 1)],
-        [0, sine(theta, 1), cosine(theta, 1)],
-      ]),
-      multiply(
-        matrix([
-          [cosine(x, this.kappa), -sine(x, this.kappa, true), 0],
-          [sine(x, this.kappa), cosine(x, this.kappa), 0],
-          [0, 0, 1],
-        ]),
-        matrix([
-          [cosine(y, this.kappa), 0, -sine(y, this.kappa, true)],
-          [0, 1, 0],
-          [sine(y, this.kappa), 0, cosine(y, this.kappa)],
-        ]),
-      ),
-    );
+    this.mat = point(theta, ...phi, kappa);
   }
   get project() {
     return multiply(
