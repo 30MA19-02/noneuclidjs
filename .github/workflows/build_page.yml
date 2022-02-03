@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: update docs
+name: Build gh-pages
 
 # Controls when the workflow will run
 on:
@@ -33,6 +33,7 @@ jobs:
       - name: Build `docs` in `main` branch
         run: |
           npm ci
+          npm run docs-ci
           npm run docs-build
 
       - name: Deploy
