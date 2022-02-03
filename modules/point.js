@@ -1,4 +1,4 @@
-import {sin, sinh, cos, cosh, multiply, matrix} from 'mathjs';
+import {sin, sinh, cos, cosh, matrix, multiply, concat, identity, zeros} from 'mathjs';
 
 function sine(theta, kappa = 1, s = false) {
   return kappa == 0 ? (s ? 0 : theta) : kappa > 0 ? sin(theta * kappa) : (s ? -sinh(theta * kappa) : sinh(theta * kappa));
@@ -9,53 +9,66 @@ function cosine(theta, kappa = 1) {
 
 function rotation(theta, kappa){
   return matrix([
-    [cosine(theta, kappa), -sine(theta, kappa, s=true)],
-    [sine(theta, kappa), cos(theta, kappa)],
+    [cosine(theta, kappa), -sine(theta, kappa, true)],
+    [sine(theta, kappa), cosine(theta, kappa)],
   ]);
 }
 
-function positional(...theta, kappa){
+function positional(kappa, ...theta){
   let n = theta.length;
+
   if(n==0) return matrix([[1]]);
   return multiply(
-    concat(concat(positional(...[theta.slice(0,-1)], kappa), zeros(n,1), 2), concat(zeros(1,n), identity(1), 2), 1)
-    * matrix(new Array(n+1).fill(0).map(
-      (_, i)=>new Array(n+1).fill(0).map((_,j)=>
-        (i==j && i!=1 && i!= n) || (i==1&&j==n) || (i==n&&j==1)? 1:0
-      )))
-    * concat(concat(rotation(theta[n-1], kappa), zeros(2,n-1), 2), concat(zeros(n-1,2), identity(n-1), 2), 1)
-    * matrix(new Array(n+1).fill(0).map(
-      (_, i)=>new Array(n+1).fill(0).map((_,j)=>
-        (i==j && i!=1 && i!= n) || (i==1&&j==n) || (i==n&&j==1)? 1:0
-      )))
+    concat(concat(positional(kappa, ...theta.slice(0,-1)), zeros(1,n), 0), concat(zeros(n,1), identity(1), 0), 1),
+    multiply(
+      matrix(new Array(n+1).fill(0).map(
+        (_, i)=>new Array(n+1).fill(0).map((_,j)=>
+          (i==j && i!=1 && i!= n) || (i==1&&j==n) || (i==n&&j==1)? 1:0
+        ))),
+      multiply(
+        (n==1? rotation(theta[n-1], kappa):concat(concat(rotation(theta[n-1], kappa), zeros(n-1,2), 0), concat(zeros(2,n-1), identity(n-1), 0), 1)),
+        matrix(new Array(n+1).fill(0).map(
+          (_, i)=>new Array(n+1).fill(0).map((_,j)=>
+            (i==j && i!=1 && i!= n) || (i==1&&j==n) || (i==n&&j==1)? 1:0
+          ))
+        )
+      )
+    )
   );
 }
-function orientational(...phi, reflect=false){
+function orientational(...phi){
   let n = phi.length;
-  if(n==0) return matrix([[reflect? -1:1]]);
-  return concat(concat(identity(1), zeros(1,n), 2), concat(zeros(n,1), point(...phi, +1), 2), 1);
+  let reflect = false;
+  if(n==0)return multiply(identity(1),reflect? -1:1);
+  return concat(concat(identity(1), zeros(n,1), 0), concat(zeros(1,n), point(+1, ...phi), 0), 1);
 }
-function point(theta, ...phi, kappa){
-  return multiply(orientational(...phi), positional(...theta, kappa))
+function point(kappa, theta, ...phi){
+  return multiply(orientational(...phi), positional(kappa, ...theta))
 }
 
 export class Point {
-  constructor(theta, ...phi, kappa) {
+  constructor(kappa, theta, ...phi) {
     this.kappa = kappa;
-    this.mat = point(theta, ...phi, kappa);
+    if(phi.length!=0) this.mat = point(kappa, theta, ...phi, []);
+    else if(theta===undefined) this.mat = undefined;
+    else this.mat = positional(kappa, ...theta);
+  }
+  get dim() {
+    return this.mat.size()[0] - 1;
   }
   get project() {
     return multiply(
       multiply(
         this.mat,
-        matrix([[1], [0], [0]]),
+        concat(identity(1), zeros(this.dim, 1), 0),
       ),
       this.kappa != 0 ? 1 / this.kappa : 1
     );
   }
   operate(other) {
-    console.assert(this.kappa == other.kappa, "Invalid point: This point (" + this.kappa.toString() + ") is not in the same with the other (" + other.kappa.toString() + ").")
-    let p = new Point(0, 0, 0, this.kappa);
+    console.assert(this.dim == other.dim, "Invalid point: This point (" + this.dim.toString() + ") is not in the same dimension with the other (" + other.dim.toString() + ").")
+    console.assert(this.kappa == other.kappa, "Invalid point: This point (" + this.kappa.toString() + ") is not in the same curvature with the other (" + other.kappa.toString() + ").")
+    let p = new Point(this.kappa);
     p.mat = multiply(
       other.mat,
       this.mat,
