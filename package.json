@@ -10,10 +10,10 @@
     "man/*"
   ],
   "scripts": {
-    "build": "(npm ci || npm install) && browserify index.js -s noneuc -o dist/noneuclid.js",
-    "docs-dev": "cd docs && (npm ci || npm install) && npm run dev",
-    "docs-build": "cd docs && (npm ci || npm install) && npm run build",
-    "docs-preview": "cd docs && (npm ci || npm install) && npm run preview"
+    "build": "npm ci && browserify index.js -s noneuc -o dist/noneuclid.js",
+    "docs-dev": "cd docs && npm ci && npm run dev",
+    "docs-build": "cd docs && npm ci && npm run build",
+    "docs-preview": "cd docs && npm ci && npm run preview"
   },
   "repository": {
     "type": "git",
