@@ -52,7 +52,6 @@ export class Point {
     if(phi.length!=0) this.mat = point(kappa, theta, ...phi, []);
     else if(!(theta===undefined)) this.mat = positional(kappa, ...theta);
     else this.mat = undefined;
-    // if(!(this.mat === undefined))console.log(this.theta, theta);
   }
   get dim() {
     return this.mat.size()[0] - 1;
@@ -83,9 +82,9 @@ export class Point {
     if(this.kappa > 0 && p<0){
       theta[0] *= -1;
       if (theta[0] > 0){
-        theta[0] -= pi;
+        theta[0] -= pi/this.kappa;
       }else{
-        theta[0] += pi;
+        theta[0] += pi/this.kappa;
       }
     }
     return theta;
