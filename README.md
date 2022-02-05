@@ -9,7 +9,7 @@ See example in `/docs` or the code in acton at the [documentation page](https://
 
 Run `npm ci` in `/docs` to install dependencies for the example.
 
-The example can be build by running `npm install build`.
+The example can then be build by running `npm install build`.
 
 To run the example while edit it, run `npm install dev`.
 
