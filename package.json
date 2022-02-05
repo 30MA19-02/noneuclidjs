@@ -6,12 +6,9 @@
   "files": [
     "modules/*.js"
   ],
-  "man": [
-    "man/*"
-  ],
   "scripts": {
     "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
-    "docs-ci": "cd docs && npm ci",
+    "docs-ci": "cd docs && npm ci && npm install ..",
     "docs-dev": "cd docs && npm run dev",
     "docs-build": "cd docs && npm run build",
     "docs-preview": "cd docs && npm run preview"
@@ -27,10 +24,7 @@
   },
   "homepage": "https://30ma19-02.github.io/noneuclidjs/",
   "dependencies": {
-    "build": "^0.1.4",
-    "mathjs": "^10.1.1",
-    "noneuclid": "github:30MA19-02/noneuclidjs",
-    "preview": "^0.1.3"
+    "mathjs": "^10.1.1"
   },
   "devDependencies": {
     "browserify": "^17.0.0"
