@@ -30,11 +30,14 @@ jobs:
         with:
           node-version: 16
 
+      # Also update noneuclid for docs according to the possible update to the package from the commit
       - name: Build `docs` in `main` branch
         run: |
           npm ci
-          npm run docs-ci
-          npm run docs-build
+          cd docs
+          npm ci
+          npm update noneuclid
+          npm run build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.7
