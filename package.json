@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
-    "docs-ci": "cd docs && npm ci && npm install ..",
+    "update": "npm update & (cd docs && npm update)",
+    "docs-ci": "cd docs && npm ci",
     "docs-dev": "cd docs && npm run dev",
     "docs-build": "cd docs && npm run build",
     "docs-preview": "cd docs && npm run preview"
