@@ -5,10 +5,12 @@
 ## Installation
 Run `npm install 30MA19-02/noneuclidjs` to install Noneuclidjs
 ## Usage
-See example in `/docs` or at the [documentation page](https://30ma19-02.github.io/noneuclidjs/).
+See example in `/docs` or the code in acton at the [documentation page](https://30ma19-02.github.io/noneuclidjs/).
 
-The example can be build by running `npm install docs-build`.
+Run `npm ci` in `/docs` to install dependencies for the example.
 
-To run the example while edit it, run `npm install docs-dev`.
+The example can be build by running `npm install build`.
 
-To view the example without building it, run `npm install docs-preview`.
+To run the example while edit it, run `npm install dev`.
+
+To view the example without building it, run `npm install preview`.
