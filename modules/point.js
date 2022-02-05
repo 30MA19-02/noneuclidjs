@@ -53,6 +53,7 @@ function cosine(theta, kappa = 1) {
  * @param {number} kappa curvature parameter
  * @param {bool} s indicate if the function is the starred function or not
  * @returns {number} value of the function
+ * @throws RangeError - As an inverse function, the argument must in the specific range of the function.
  */
 function arcsine(x, kappa = 1, s = false) {
   if(kappa > 0 && abs(x)>1){
@@ -78,6 +79,7 @@ function arcsine(x, kappa = 1, s = false) {
  * @param {number} x function argument
  * @param {number} kappa curvature parameter
  * @returns {number} value of the function
+ * @throws RangeError - As an inverse function, the argument must in the specific range of the function.
  */
 function arccosine(x, kappa = 1) {
   if(kappa > 0 && abs(x)>1){
