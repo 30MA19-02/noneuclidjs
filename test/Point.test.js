@@ -4,7 +4,7 @@ describe("Point", () => {
     it("No parameters", () => {
       const t = () => new Point();
       expect(t).toThrow(Error);
-      expect(t).toThrow("Curvature parameter expected.");
+      expect(t).toThrow("Curvature parameter expected");
     });
     describe("Curvature only", () => {
       it("Positive Curvature (+1)", () => {
