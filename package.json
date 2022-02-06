@@ -1,7 +1,6 @@
 {
   "name": "noneuclid",
   "version": "1.0.0",
-  "description": "30MA19-02",
   "main": "index.js",
   "files": [
     "src/*"
@@ -10,11 +9,7 @@
     "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
     "update": "npm update & (cd docs && npm update)",
     "test": "jest --verbose",
-    "testWatch": "jest --watchAll --verbose",
-    "docs-ci": "cd docs && npm ci",
-    "docs-dev": "cd docs && npm run dev",
-    "docs-build": "cd docs && npm run build",
-    "docs-preview": "cd docs && npm run preview"
+    "testWatch": "jest --watchAll --verbose"
   },
   "repository": {
     "type": "git",
@@ -37,7 +32,6 @@
     "jest": "^27.5.0"
   },
   "directories": {
-    "doc": "docs",
     "test": "test"
   }
 }
