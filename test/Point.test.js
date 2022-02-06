@@ -1,9 +1,5 @@
 import { Point } from "..";
 describe("Point", () => {
-  describe("Failing test", () => {
-    const t = () => throw new Error();
-    expect(t).toBe(0);
-  });
   describe("Construction", () => {
     it("No parameters", () => {
       const t = () => new Point();
