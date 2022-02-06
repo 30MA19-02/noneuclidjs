@@ -1,10 +1,14 @@
 import { Point } from "..";
 describe("Point", () => {
+  describe("Failing test", () => {
+    const t = () => throw new Error();
+    expect(t).toBe(0);
+  });
   describe("Construction", () => {
     it("No parameters", () => {
       const t = () => new Point();
       expect(t).toThrow(Error);
-      expect(t).toThrow("Curvature parameter expected");
+      expect(t).toThrow("Curvature parameter expected.");
     });
     describe("Curvature only", () => {
       it("Positive Curvature (+1)", () => {
