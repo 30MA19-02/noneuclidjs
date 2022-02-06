@@ -9,6 +9,8 @@
   "scripts": {
     "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
     "update": "npm update & (cd docs && npm update)",
+    "test": "jest --verbose",
+    "testWatch": "jest --watchAll --verbose",
     "docs-ci": "cd docs && npm ci",
     "docs-dev": "cd docs && npm run dev",
     "docs-build": "cd docs && npm run build",
@@ -28,6 +30,10 @@
     "mathjs": "^10.1.1"
   },
   "devDependencies": {
-    "browserify": "^17.0.0"
+    "@babel/preset-env": "^7.16.11",
+    "@types/jest": "^27.4.0",
+    "babel-jest": "^27.5.0",
+    "browserify": "^17.0.0",
+    "jest": "^27.5.0"
   }
 }
