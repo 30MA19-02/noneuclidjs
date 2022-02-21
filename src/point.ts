@@ -1,16 +1,4 @@
-import {
-  concat,
-  identity,
-  index,
-  matrix,
-  Matrix,
-  multiply,
-  pi,
-  range,
-  sqrt,
-  square,
-  zeros,
-} from 'mathjs';
+import { concat, identity, index, matrix, Matrix, multiply, pi, range, sqrt, square, zeros } from 'mathjs';
 
 import { point, reflect, orientational, positional } from './modules/transformations';
 import { arcsine } from './modules/trigonometry';
@@ -97,8 +85,8 @@ export class Point {
   }
 
   protected set matrix(value: Matrix) {
-    if(config.strict){
-        if (!(isSquare(value) && value.size()[0] === this.dim + 1)) {
+    if (config.strict) {
+      if (!(isSquare(value) && value.size()[0] === this.dim + 1)) {
         throw new Error(
           `Invalid dimension: Not an square matrix of dimension ${
             this.dim + 1
@@ -107,31 +95,31 @@ export class Point {
       }
       if (this.kappa > 0) {
         if (!isOrthogonal(value)) {
-          throw new Error(
-            `Invalid value: Not an orthogonal matrix.`,
-          );
+          throw new Error(`Invalid value: Not an orthogonal matrix.`);
         }
       } else if (this.kappa < 0) {
         if (!isOrthochronusIndefiniteOrthogonal(value, 1, this.dim)) {
-          throw new Error(
-            `Invalid value: Not an orthochronous indefinite orthogonal matrix.`,
-          );
+          throw new Error(`Invalid value: Not an orthochronous indefinite orthogonal matrix.`);
         }
       } else {
         if (!equal(value.get([0, 0]), 1)) {
           throw new Error(`Invalid value: Fixed value is not 1.`);
         }
         if (this.dim > 0) {
-          if (!deepEqual(this.dim===1?matrix([[value.get([0,1])]]):value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim) as Matrix)) {
-            throw new Error(
-              `Invalid value: Fixed value is not 0s.`,
-            );
+          if (
+            !deepEqual(
+              this.dim === 1 ? matrix([[value.get([0, 1])]]) : value.subset(index(0, range(1, this.dim + 1))),
+              zeros(1, this.dim) as Matrix,
+            )
+          ) {
+            throw new Error(`Invalid value: Fixed value is not 0s.`);
           }
-          const o = this.dim===1?matrix([[value.get([1,1])]]):value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
+          const o =
+            this.dim === 1
+              ? matrix([[value.get([1, 1])]])
+              : value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
           if (!isOrthogonal(o)) {
-            throw new Error(
-              `Invalid value: Not an extension of orthogonal matrix.`,
-            );
+            throw new Error(`Invalid value: Not an extension of orthogonal matrix.`);
           }
         }
       }
